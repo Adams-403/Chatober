@@ -54,7 +54,7 @@ export default function Sidebar({ preloadedUserInfo, preloadedConversations }: S
 
 
   return (
-    <div className="w-[70px] md:w-[380px] lg:w-1/4 h-screen flex flex-col bg-background dark:bg-[#111B21] border-r border-border dark:border-[#313D45]">
+    <div className="w-80 h-full flex flex-col bg-black border-r border-[#00ff41]/20 flex-shrink-0">
       {/* Header */}
       <div className="shrink-0 px-3 py-[18px] md:py-[14px] bg-muted dark:bg-[#202C33] flex justify-center md:justify-between items-center">
         <Link href="/profile">
@@ -94,12 +94,10 @@ export default function Sidebar({ preloadedUserInfo, preloadedConversations }: S
         </div>
       </div>
       {/* Conversations list */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto custom-scrollbar">
         {filteredConversations?.map((chat) => (
           <Link href={`/chat/${chat.id}`} key={chat.id}>
-            <div className={`flex items-center px-2 py-2 md:px-3 md:py-3 hover:bg-[#202C33] cursor-pointer
-                  ${pathname.split("/")?.[2] === chat?.id ? "bg-[#202C33]" : ""}
-                `}>
+            <div className={`flex items-center p-4 hover:bg-[#00ff41]/10 cursor-pointer border-b border-[#00ff41]/10 ${pathname.split("/")?.[2] === chat?.id ? "bg-[#202C33]" : ""}`}>
               <div className="relative">
                 <Avatar>
                   <AvatarImage className="w-12 h-12 rounded-full" src={chat?.chatImage} />
@@ -110,13 +108,13 @@ export default function Sidebar({ preloadedUserInfo, preloadedConversations }: S
               </div>
               {/* Conversation details - Only visible on md and larger screens */}
               <div className="hidden md:block flex-1 min-w-0 ml-3">
-                <div className="flex justify-between items-baseline">
-                  <h2 className="text-[#E9EDEF] text-base font-normal truncate">
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm font-mono text-[#00ff41] truncate">
                     <HighlightText text={chat.name} searchQuery={searchQuery} />
-                  </h2>
+                  </h3>
                   <span className="text-[#8696A0] text-xs ml-2 shrink-0">{chat.time}</span>
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between p-4 border-b border-[#00ff41]/20">
                   <p className="text-[#8696A0] text-sm truncate pr-2">
                     {chat.type === "image" ? (
                       <span className="flex items-center gap-1">
