@@ -1,6 +1,6 @@
-## HacktoberFest 2025
+# HacktoberFest 2025
 
-# Chatober
+## Chatober
 
 [![Hacktoberfest 2025](https://img.shields.io/badge/Hacktoberfest-2025-orange?style=flat-square)](https://hacktoberfest.com/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
