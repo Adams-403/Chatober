@@ -19,7 +19,7 @@
 ## Tech Stack
 - **Framework:** Next.js (App Router)  
 - **Authentication / Backend:** Clerk  
-- **Realtime / Database:** Supabase (optional, as needed)  
+- **Realtime / Database:** convex
 - **Styling:** Tailwind CSS  
 
 ---
