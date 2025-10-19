@@ -43,7 +43,7 @@ export default function ChatLayoutWrapper({ children, preloadedUserInfo, preload
     return null;
   }
   return (
-    <div className="flex h-screen bg-background dark:bg-[#111B21] overflow-hidden">
+    <div className="flex h-screen bg-black overflow-hidden border-r border-[#00ff41]/20">
       <Sidebar preloadedUserInfo={preloadedUserInfo} preloadedConversations={preloadedConversations} />
       <Header>
         {children}
