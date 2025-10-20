@@ -228,18 +228,18 @@ export default function FormChat({ conversationId, userId }: {
   }
 
   return (
-    <div className="bg-muted dark:bg-[#202C33]">
+    <div className="bg-black border-t border-[#00ff41]/20">
       {attachments?.length > 0 && (
-        <div className="p-2 flex gap-2 flex-wrap border-b border-border dark:border-[#313D45]">
+        <div className="p-2 flex gap-2 flex-wrap border-b border-[#00ff41]/20">
           {attachments.map((url, index) => (
             <div key={index} className="relative group">
               <img
                 src={url}
                 alt="attachment"
-                className="h-20 w-20 object-cover rounded-md"
+                className="h-20 w-20 object-cover rounded-md border border-[#00ff41]/30"
               />
               <button onClick={() => removeAttachment(index)}
-                className="absolute -top-2 -right-2 bg-red-500 rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                className="absolute -top-2 -right-2 bg-red-500 rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity border border-white"
               >
                 <X className="h-4 w-4 text-white" />
               </button>
@@ -249,15 +249,14 @@ export default function FormChat({ conversationId, userId }: {
       )}
 
       <form onSubmit={handleSubmit(onSubmit)}
-        className={`bg-muted dark:bg-[#202C33] p-4 flex items-center space-x-2  ${attachments?.length > 0 && "pb-[5rem]" } `}
+        className="p-4 flex items-center space-x-2"
       >
         <div className="relative">
           <label htmlFor="file-upload"
             className="cursor-pointer inline-flex items-center justify-center rounded-md text-sm font-medium
-            ring-offset-background transition-colors focus-visible::outline-none focus-visible:ring-2
-            focus-visible:ring-ring focus-visible:ring-offset-2
+            transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff41]
             disabled:pointer-events-none disabled:opacity-50
-            hover:bg-accent hover:text-accent-foreground h-10 w-10"
+            h-10 w-10 text-[#00ff41] hover:bg-[#00ff41]/10"
           >
             <Paperclip className="w-5 h-5" />
           </label>
@@ -269,14 +268,13 @@ export default function FormChat({ conversationId, userId }: {
             onChange={handleImageUplaod}
             disabled={isUploading}
           />
-
         </div>
         <Input
           {...register("message")}
           placeholder={
             isUploading ? "Uploading..." : isListening ? "Listening..." : "Type a message"
           }
-          className="flex-1 bg-background dark:bg-[#2A3942] border-none placeholder:text-muted-foreground"
+          className="flex-1 bg-black border border-[#00ff41]/30 text-white placeholder:text-[#00ff41]/50 focus-visible:ring-[#00ff41] focus-visible:ring-1"
         />
         {speechSupported && (
           <Button
@@ -284,12 +282,17 @@ export default function FormChat({ conversationId, userId }: {
             variant="ghost"
             size="icon"
             onClick={toggleListening}
-            className={`transition-colors ${isListening ? "text-red-500" : hasMicPermission === false ? "text-gray-400" : ""}`}
+            className={`h-10 w-10 text-[#00ff41] hover:bg-[#00ff41]/10 ${isListening ? "text-red-500" : hasMicPermission === false ? "text-gray-400" : ""}`}
           >
-            <Mic className={"h-6 w-6 " + isListening ? " animate-pulse" : ""} />
+            <Mic className={"h-5 w-5" + (isListening ? " animate-pulse" : "")} />
           </Button>
         )}
-        <Button type="submit" size="icon" disabled={isUploading || !attachments.length && !watch("message")}>
+        <Button 
+          type="submit" 
+          size="icon" 
+          disabled={isUploading || (!attachments.length && !watch("message"))}
+          className="h-10 w-10 bg-[#00ff41] hover:bg-[#00cc33] text-black"
+        >
           <Send className="w-5 h-5" />
         </Button>
       </form>

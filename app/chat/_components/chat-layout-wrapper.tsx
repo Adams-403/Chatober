@@ -14,14 +14,13 @@ interface ChatLayoutProps {
 }
 
 export default function ChatLayoutWrapper({ children, preloadedUserInfo, preloadedConversations }: ChatLayoutProps) {
-
+  const { isLoaded, isSignedIn } = useAuth()
   // Sidebar
   // Header
   // Nice loading state
 
-  const { isLoaded, isSignedIn } = useAuth()
   const [shouldShowLoading, setShouldShowLoading] = useState(true)
-
+ 
   const userInfo = usePreloadedQuery(preloadedUserInfo)
   const conversations = usePreloadedQuery(preloadedConversations)
 

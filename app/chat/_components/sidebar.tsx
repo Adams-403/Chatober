@@ -55,41 +55,63 @@ export default function Sidebar({ preloadedUserInfo, preloadedConversations }: S
 
   return (
     <div className="w-80 h-full flex flex-col bg-black border-r border-[#00ff41]/20 flex-shrink-0">
-      {/* Header */}
-      <div className="shrink-0 px-3 py-[18px] md:py-[14px] bg-muted dark:bg-[#202C33] flex justify-center md:justify-between items-center">
-        <Link href="/profile">
-          <Avatar>
-            <AvatarImage className="w-8 h-8 md:w-9 md:h-9 rounded-full" src={userInfo?.profileImage} alt="Your avatar" />
-          </Avatar>
-        </Link>
-        <div className="hidden md:flex justify-center items-center gap-2">
+      {/* Header - Matches main header styling */}
+      <div className="h-[59px] flex items-center justify-between px-4 py-2 border-b border-[#00ff41]/20 bg-black z-10">
+        <div className="flex items-center gap-3">
+          <Link href="/profile" className="group relative">
+            <div className="absolute inset-0 rounded-full bg-[#00ff41] opacity-0 group-hover:opacity-20 transition-opacity" />
+            <Avatar>
+              <AvatarImage 
+                className="w-8 h-8 rounded-full border border-[#00ff41]/30" 
+                src={userInfo?.profileImage} 
+                alt="Your avatar" 
+              />
+              <AvatarFallback className="bg-[#00ff41]/10 text-[#00ff41] font-mono">
+                {userInfo?.username?.charAt(0).toUpperCase() || 'U'}
+              </AvatarFallback>
+            </Avatar>
+          </Link>
+          <span className="text-[#00ff41] font-mono text-sm hidden md:block">
+            {userInfo?.username || 'User'}
+          </span>
+        </div>
+        <div className="flex items-center space-x-2">
           <SearchComponent onSidebar={true} />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="h-10 w-10">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="h-9 w-9 text-[#00ff41] hover:bg-[#00ff41]/10"
+              >
                 <MoreVertical className="h-5 w-5" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem onClick={() => {
-                signOut()
-                router.push("/")
-              }}>Log out</DropdownMenuItem>
+            <DropdownMenuContent className="w-56 bg-black border border-[#00ff41]/30 text-[#00ff41] font-mono" align="end">
+              <DropdownMenuItem 
+                onClick={() => {
+                  signOut()
+                  router.push("/")
+                }}
+                className="cursor-pointer hover:bg-[#00ff41]/10 focus:bg-[#00ff41]/10 focus:text-[#00ff41]"
+              >
+                Sign Out
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
       </div>
       {/* Search Input */}
-      <div className="hidden md:block p-2 bg-[#111B21]">
-        <div className="relative bg-[#202C33] rounded-lg flex items-center">
-          <div className="pl-4 pr-2 py-2">
-            <Search className="h-5 w-5 text-[#8696A0]" />
+      <div className="hidden md:block p-2 bg-black">
+        <div className="relative bg-black border border-[#00ff41]/30 rounded-md flex items-center hover:border-[#00ff41]/60 transition-colors">
+          <div className="pl-3 pr-2 py-2">
+            <Search className="h-4 w-4 text-[#00ff41]/80" />
           </div>
           <input
-            placeholder="Search"
+            placeholder="Search conversations..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-transparent border-none text-[#E9EDEF] placeholder:text-[#8696A0] focus:outline-none py-2 text-base"
+            className="w-full bg-transparent border-none text-[#00ff41] placeholder:text-[#00ff41]/50 focus:outline-none py-2 text-sm font-mono focus:ring-0 focus:ring-offset-0"
           />
         </div>
       </div>
