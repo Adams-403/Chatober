@@ -80,16 +80,16 @@ export default function Sidebar({ preloadedUserInfo, preloadedConversations }: S
         </div>
       </div>
       {/* Search Input */}
-      <div className="hidden md:block p-2 bg-[#111B21]">
-        <div className="relative bg-[#202C33] rounded-lg flex items-center">
-          <div className="pl-4 pr-2 py-2">
-            <Search className="h-5 w-5 text-[#8696A0]" />
+      <div className="hidden md:block p-2 bg-black">
+        <div className="relative bg-black border border-[#00ff41]/30 rounded-md flex items-center hover:border-[#00ff41]/60 transition-colors">
+          <div className="pl-3 pr-2 py-2">
+            <Search className="h-4 w-4 text-[#00ff41]/80" />
           </div>
           <input
-            placeholder="Search"
+            placeholder="Search conversations..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-transparent border-none text-[#E9EDEF] placeholder:text-[#8696A0] focus:outline-none py-2 text-base"
+            className="w-full bg-transparent border-none text-[#00ff41] placeholder:text-[#00ff41]/50 focus:outline-none py-2 text-sm font-mono focus:ring-0 focus:ring-offset-0"
           />
         </div>
       </div>
