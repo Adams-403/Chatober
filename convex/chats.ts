@@ -8,20 +8,37 @@ export const createOrGetConversation = mutation({
     currentUserId: v.string(),
   },
   handler: async (ctx, args) => {
-    // Get both users' Convex IDs from their Clerk IDs
-    const currentUser = await ctx.db
-      .query("users")
-      .filter((q) => q.eq(q.field("userId"), args.currentUserId))
-      .first();
+    // Helper function to get or create a user
+    async function getOrCreateUser(userId: string) {
+      let user = await ctx.db
+        .query("users")
+        .filter((q) => q.eq(q.field("userId"), userId))
+        .first();
 
-    const otherUser = await ctx.db
-      .query("users")
-      .filter((q) => q.eq(q.field("userId"), args.participantUserId))
-      .first();
+      if (!user) {
+        // If user doesn't exist, create a minimal user record
+        const newUserId = await ctx.db.insert("users", {
+          userId,
+          email: `${userId}@example.com`, // Placeholder email
+          name: `User ${userId.substring(0, 6)}`, // Generic name based on ID
+          createdAt: Date.now(),
+          profileImage: ""
+        });
+        user = await ctx.db.get(newUserId);
+      }
 
-    if (!currentUser || !otherUser) {
-      throw new Error("User not found");
+      if (!user) {
+        throw new Error(`Failed to get or create user ${userId}`);
+      }
+
+      return user;
     }
+
+    // Get or create both users
+    const [currentUser, otherUser] = await Promise.all([
+      getOrCreateUser(args.currentUserId),
+      getOrCreateUser(args.participantUserId)
+    ]);
 
     const existingConversation = await ctx.db
       .query("conversations")

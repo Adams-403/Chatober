@@ -21,8 +21,8 @@ export default function LoadingState() {
   }, [])
 
   return (
-    <div className="flex h-screen bg-black text-[#00ff41] font-mono">
-      <div className="flex-1 flex flex-col items-center justify-center p-6 text-center">
+    <div className="fixed inset-0 bg-black text-[#00ff41] font-mono flex items-center justify-center z-50">
+      <div className="flex flex-col items-center justify-center p-6 text-center max-w-md w-full">
         <div className="relative mb-8">
           <div className="absolute inset-0 bg-[#00ff41] opacity-20 blur-lg rounded-full -z-10"></div>
           <Lock className="h-20 w-20 mx-auto text-[#00ff41] animate-pulse" />

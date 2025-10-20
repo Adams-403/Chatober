@@ -36,7 +36,7 @@ export default function ChatList({
 
   return (
     <div ref={containerRef}
-      className="flex-1 overflow-y-auto bg-background dark:bg-[#0B141A] max-h-[calc(100vh-135px)]"
+      className="flex-1 overflow-y-auto bg-background dark:bg-black max-h-[calc(100vh-135px)]"
       style={{
         msOverflowStyle: 'none',
         scrollbarWidth: 'none',

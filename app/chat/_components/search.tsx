@@ -44,6 +44,10 @@ export default function SearchComponent({ onSidebar }: { onSidebar: boolean }) {
     currentUserId: userId || ""
   })
 
+  console.log('Search results:', searchResults)
+  console.log('User ID:', userId)
+  console.log('Debounced term:', debouncedTerm)
+
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     setSearchTerm(value)
@@ -156,13 +160,16 @@ export default function SearchComponent({ onSidebar }: { onSidebar: boolean }) {
                     </div>
                   </div>
                 ))}
-                {searchResults?.length === 0 && debouncedTerm && (
+                {searchResults?.length === 0 && (
                   <div className="p-6 text-center text-[#00ff41]/50 font-mono">
-                    {`>_ NO RESULTS FOR "${debouncedTerm}"`}
+                    {debouncedTerm 
+                      ? `>_ NO RESULTS FOR "${debouncedTerm}"`
+                      : `>_ NO USERS FOUND. PLEASE ADD SOME USERS TO GET STARTED.`
+                    }
                   </div>
                 )}
 
-                {!debouncedTerm && (
+                {!debouncedTerm && searchResults && searchResults.length > 0 && (
                   <div className="px-4 py-8 text-center">
                     <p className="text-[#8696A0] text-sm">
                       Search for users to start a new chat

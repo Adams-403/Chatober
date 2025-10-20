@@ -26,12 +26,14 @@ export default async function ChatLayout({ children }: {
     })
 
     return (
-      <ChatLayoutWrapper
-        preloadedUserInfo={preloadedUserInfo}
-        preloadedConversations={preloadedConversations}
-      >
-        {children}
-      </ChatLayoutWrapper>
+      <div className="min-h-screen bg-black">
+        <ChatLayoutWrapper
+          preloadedUserInfo={preloadedUserInfo}
+          preloadedConversations={preloadedConversations}
+        >
+          {children}
+        </ChatLayoutWrapper>
+      </div>
     )
   } catch (error) {
     console.error("Error loading chat data:", error)

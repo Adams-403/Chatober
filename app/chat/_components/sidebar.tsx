@@ -1,4 +1,4 @@
-import { AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { api } from "@/convex/_generated/api"
 import { useAuth } from "@clerk/nextjs"
-import { Avatar } from "@radix-ui/react-avatar"
 import { Preloaded, usePreloadedQuery } from "convex/react"
 import { MoreVertical, Search, Users2 } from "lucide-react"
 import Link from "next/link"
@@ -57,7 +56,7 @@ export default function Sidebar({ preloadedUserInfo, preloadedConversations }: S
     <div className="w-80 h-full flex flex-col bg-black border-r border-[#00ff41]/20 flex-shrink-0">
       {/* Header - Matches main header styling */}
       <div className="h-[59px] flex items-center justify-between px-4 py-2 border-b border-[#00ff41]/20 bg-black z-10">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 bg-black">
           <Link href="/profile" className="group relative">
             <div className="absolute inset-0 rounded-full bg-[#00ff41] opacity-0 group-hover:opacity-20 transition-opacity" />
             <Avatar>
@@ -67,12 +66,12 @@ export default function Sidebar({ preloadedUserInfo, preloadedConversations }: S
                 alt="Your avatar" 
               />
               <AvatarFallback className="bg-[#00ff41]/10 text-[#00ff41] font-mono">
-                {userInfo?.username?.charAt(0).toUpperCase() || 'U'}
+                {userInfo?.name?.charAt(0).toUpperCase() || 'U'}
               </AvatarFallback>
             </Avatar>
           </Link>
-          <span className="text-[#00ff41] font-mono text-sm hidden md:block">
-            {userInfo?.username || 'User'}
+          <span className="text-[#00ff41] font-mono text-sm hidden md:block bg-black">
+            {userInfo?.name || 'User'}
           </span>
         </div>
         <div className="flex items-center space-x-2">

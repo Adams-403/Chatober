@@ -63,8 +63,8 @@ export default function Header({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="flex-1 flex flex-col h-full max-h-screen overflow-hidden bg-black">
-      <header className="h-[59px] flex items-center justify-between px-4 py-2 border-b border-[#00ff41]/20 bg-black z-10">
+    <div className="flex-1 flex flex-col min-h-0 bg-black">
+      <header className="flex-shrink-0 h-[59px] flex items-center justify-between px-4 py-2 border-b border-[#00ff41]/20 bg-black z-10">
         <div className="flex justify-end w-full space-x-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
