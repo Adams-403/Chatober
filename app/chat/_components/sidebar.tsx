@@ -55,45 +55,45 @@ export default function Sidebar({ preloadedUserInfo, preloadedConversations }: S
 
   return (
     <div className="w-80 h-full flex flex-col bg-black border-r border-[#00ff41]/20 flex-shrink-0">
-      {/* Header */}
-      <div className="shrink-0 px-4 py-3 border-b border-[#00ff41]/20 bg-black flex justify-between items-center">
-        <Link href="/profile" className="flex items-center gap-3 group">
-          <div className="relative">
+      {/* Header - Matches main header styling */}
+      <div className="h-[59px] flex items-center justify-between px-4 py-2 border-b border-[#00ff41]/20 bg-black z-10">
+        <div className="flex items-center gap-3">
+          <Link href="/profile" className="group relative">
             <div className="absolute inset-0 rounded-full bg-[#00ff41] opacity-0 group-hover:opacity-20 transition-opacity" />
             <Avatar>
               <AvatarImage 
-                className="w-8 h-8 md:w-9 md:h-9 rounded-full border border-[#00ff41]/30" 
+                className="w-8 h-8 rounded-full border border-[#00ff41]/30" 
                 src={userInfo?.profileImage} 
                 alt="Your avatar" 
               />
               <AvatarFallback className="bg-[#00ff41]/10 text-[#00ff41] font-mono">
-                {userInfo?.username?.charAt(0).toUpperCase()}
+                {userInfo?.username?.charAt(0).toUpperCase() || 'U'}
               </AvatarFallback>
             </Avatar>
-          </div>
-          <span className="text-[#00ff41] font-mono text-sm hidden md:inline-block">
+          </Link>
+          <span className="text-[#00ff41] font-mono text-sm hidden md:block">
             {userInfo?.username || 'User'}
           </span>
-        </Link>
-        <div className="flex items-center gap-2">
+        </div>
+        <div className="flex items-center space-x-2">
           <SearchComponent onSidebar={true} />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button 
                 variant="ghost" 
                 size="icon" 
-                className="h-8 w-8 text-[#00ff41] hover:bg-[#00ff41]/10 hover:text-[#00ff41]"
+                className="h-9 w-9 text-[#00ff41] hover:bg-[#00ff41]/10"
               >
-                <MoreVertical className="h-4 w-4" />
+                <MoreVertical className="h-5 w-5" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-black border border-[#00ff41]/30 text-[#00ff41] font-mono min-w-[120px]">
+            <DropdownMenuContent className="w-56 bg-black border border-[#00ff41]/30 text-[#00ff41] font-mono" align="end">
               <DropdownMenuItem 
                 onClick={() => {
                   signOut()
                   router.push("/")
                 }}
-                className="cursor-pointer text-[#00ff41] hover:bg-[#00ff41]/10 focus:bg-[#00ff41]/10 focus:text-[#00ff41]"
+                className="cursor-pointer hover:bg-[#00ff41]/10 focus:bg-[#00ff41]/10 focus:text-[#00ff41]"
               >
                 Sign Out
               </DropdownMenuItem>
