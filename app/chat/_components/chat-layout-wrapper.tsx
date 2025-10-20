@@ -34,12 +34,16 @@ export default function ChatLayoutWrapper({ children, preloadedUserInfo, preload
 
   const isLoading = !isLoaded || userInfo === undefined || shouldShowLoading || conversations === undefined
 
-  if (isLoading) {
-    return <LoadingState />
-  }
-
   if (!isSignedIn) {
     return null;
+  }
+
+  if (isLoading) {
+    return (
+      <div className="fixed inset-0 bg-black z-50">
+        <LoadingState />
+      </div>
+    );
   }
   return (
     <div className="flex h-screen bg-black overflow-hidden">

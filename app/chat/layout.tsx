@@ -26,7 +26,7 @@ export default async function ChatLayout({ children }: {
     })
 
     return (
-      <div className="bg-black h-full">
+      <div className="min-h-screen bg-black">
         <ChatLayoutWrapper
           preloadedUserInfo={preloadedUserInfo}
           preloadedConversations={preloadedConversations}

@@ -70,15 +70,6 @@ export default function RootLayout({
                   <Toaster position="top-center" richColors />
                 </ThemeProvider>
               </ConvexClientProvider>
-              
-              {/* Terminal-like footer */}
-              <footer className="border-t border-[#00ff41]/20 p-2 text-xs text-[#00ff41]/60 text-center">
-                <div className="flex justify-between items-center px-4">
-                  <span>CHATOBER v1.0.0</span>
-                  <span>STATUS: <span className="text-[#00ff41]">SECURE CONNECTION</span></span>
-                  <span>{new Date().getFullYear()} © CHATOBER</span>
-                </div>
-              </footer>
             </div>
           </div>
         </body>
