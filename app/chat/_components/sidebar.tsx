@@ -57,7 +57,7 @@ export default function Sidebar({ preloadedUserInfo, preloadedConversations }: S
     <div className="w-80 h-full flex flex-col bg-black border-r border-[#00ff41]/20 flex-shrink-0">
       {/* Header - Matches main header styling */}
       <div className="h-[59px] flex items-center justify-between px-4 py-2 border-b border-[#00ff41]/20 bg-black z-10">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 bg-black">
           <Link href="/profile" className="group relative">
             <div className="absolute inset-0 rounded-full bg-[#00ff41] opacity-0 group-hover:opacity-20 transition-opacity" />
             <Avatar>
@@ -71,7 +71,7 @@ export default function Sidebar({ preloadedUserInfo, preloadedConversations }: S
               </AvatarFallback>
             </Avatar>
           </Link>
-          <span className="text-[#00ff41] font-mono text-sm hidden md:block">
+          <span className="text-[#00ff41] font-mono text-sm hidden md:block bg-black">
             {userInfo?.username || 'User'}
           </span>
         </div>
