@@ -4,10 +4,10 @@ import Link from "next/link";
 export default function Home() {
 
   return (
-    <main className="flex min-h-screen flex-col items-cetner justify-center bg-[#00A884] dark:bg-[#111B21] text-white p-4">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-black text-white p-4">
       <div className="text-center space-y-6">
-        <h1 className="text-4xl font-bold sm:text-5xl md:text-6xl">
-          Welcome to Not WhatsApp
+        <h1 className="text-4xl font-bold sm:text-5xl md:text-6xl glitch" data-text="CHATOBER v1.3.3.7">
+          CHATOBER v1.3.3.7
         </h1>
         <p className="text-xl md:text-2xl text-[#00ff41] font-mono">
           {`>_ Secure. Encrypted. For Everyone. By Tech Enthusiasts.`}

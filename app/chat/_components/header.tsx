@@ -63,44 +63,43 @@ export default function Header({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="flex-1 flex flex-col w-full">
-      <div className="bg-muted dark:bg-[#202C33] p-4 flex justify-between items-center border-border dark:border-[#313D45]">
+    <div className="flex-1 flex flex-col min-h-0 bg-black">
+      <header className="flex-shrink-0 h-[59px] flex items-center justify-between px-4 py-2 border-b border-[#00ff41]/20 bg-black z-10">
         <div className="flex justify-end w-full space-x-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className="text-[#00ff41] hover:bg-[#00ff41]/10">
                 <MoreVertical className="w-5 h-5" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => setShowDeleteAlert(true)}
-                className="text-red-500 focus-text-red-500"
+            <DropdownMenuContent className="w-56 bg-black border border-[#00ff41]/30 text-[#00ff41] font-mono" align="end">
+              <DropdownMenuItem
+                onClick={() => setShowDeleteAlert(true)}
+                className="text-[#ff5555] hover:bg-[#ff5555]/10 focus:bg-[#ff5555]/10 focus:text-[#ff5555] cursor-pointer"
               >Delete Chat</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
         </div>
-      </div>
+      </header>
 
       <AlertDialog open={showDeleteAlert} onOpenChange={setShowDeleteAlert}>
-        <AlertDialogContent>
+        <AlertDialogContent className="bg-black border border-[#00ff41]/30 text-[#00ff41] font-mono">
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-[#E9EDEF]">Delete Chat</AlertDialogTitle>
-            <AlertDialogDescription className="text-[#8696A0]">
-              Are you sure you want to delete this chat? This action cannot be undone.
+            <AlertDialogTitle className="text-[#00ff41]">{`>_ Confirm Deletion`}</AlertDialogTitle>
+            <AlertDialogDescription className="text-[#00ff41]/80">
+              WARNING: This action is irreversible. All chat data will be permanently erased.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel
-              className="bg-[#2A3942] text-[#E9EDEF] hover:bg-[#364147] hover:text-[#E9EDEF]"
-              onClick={() => setShowDeleteAlert(false)}
-            >Cancel</AlertDialogCancel>
+            <AlertDialogCancel className="bg-transparent border border-[#00ff41]/30 text-[#00ff41] hover:bg-[#00ff41]/10 hover:text-[#00ff41]">
+              Cancel
+            </AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDelete}
-              className="bg-red-500 hover:bg-red-600 text-white"
-              disabled={isDeleting}
+              className="bg-[#ff5555] hover:bg-[#ff3333] text-black font-mono"
             >
-              {isDeleting ? "Deleting..." : "Delete"}
+{`>_`} CONFIRM DELETE
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

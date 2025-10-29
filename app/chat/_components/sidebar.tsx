@@ -1,4 +1,4 @@
-import { AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { api } from "@/convex/_generated/api"
 import { useAuth } from "@clerk/nextjs"
-import { Avatar } from "@radix-ui/react-avatar"
 import { Preloaded, usePreloadedQuery } from "convex/react"
 import { MoreVertical, Search, Users2 } from "lucide-react"
 import Link from "next/link"
@@ -54,52 +53,72 @@ export default function Sidebar({ preloadedUserInfo, preloadedConversations }: S
 
 
   return (
-    <div className="w-[70px] md:w-[380px] lg:w-1/4 h-screen flex flex-col bg-background dark:bg-[#111B21] border-r border-border dark:border-[#313D45]">
-      {/* Header */}
-      <div className="shrink-0 px-3 py-[18px] md:py-[14px] bg-muted dark:bg-[#202C33] flex justify-center md:justify-between items-center">
-        <Link href="/profile">
-          <Avatar>
-            <AvatarImage className="w-8 h-8 md:w-9 md:h-9 rounded-full" src={userInfo?.profileImage} alt="Your avatar" />
-          </Avatar>
-        </Link>
-        <div className="hidden md:flex justify-center items-center gap-2">
+    <div className="w-80 h-full flex flex-col bg-black border-r border-[#00ff41]/20 flex-shrink-0">
+      {/* Header - Matches main header styling */}
+      <div className="h-[59px] flex items-center justify-between px-4 py-2 border-b border-[#00ff41]/20 bg-black z-10">
+        <div className="flex items-center gap-3 bg-black">
+          <Link href="/profile" className="group relative">
+            <div className="absolute inset-0 rounded-full bg-[#00ff41] opacity-0 group-hover:opacity-20 transition-opacity" />
+            <Avatar>
+              <AvatarImage 
+                className="w-8 h-8 rounded-full border border-[#00ff41]/30" 
+                src={userInfo?.profileImage} 
+                alt="Your avatar" 
+              />
+              <AvatarFallback className="bg-[#00ff41]/10 text-[#00ff41] font-mono">
+                {userInfo?.name?.charAt(0).toUpperCase() || 'U'}
+              </AvatarFallback>
+            </Avatar>
+          </Link>
+          <span className="text-[#00ff41] font-mono text-sm hidden md:block bg-black">
+            {userInfo?.name || 'User'}
+          </span>
+        </div>
+        <div className="flex items-center space-x-2">
           <SearchComponent onSidebar={true} />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="h-10 w-10">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="h-9 w-9 text-[#00ff41] hover:bg-[#00ff41]/10"
+              >
                 <MoreVertical className="h-5 w-5" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem onClick={() => {
-                signOut()
-                router.push("/")
-              }}>Log out</DropdownMenuItem>
+            <DropdownMenuContent className="w-56 bg-black border border-[#00ff41]/30 text-[#00ff41] font-mono" align="end">
+              <DropdownMenuItem 
+                onClick={() => {
+                  signOut()
+                  router.push("/")
+                }}
+                className="cursor-pointer hover:bg-[#00ff41]/10 focus:bg-[#00ff41]/10 focus:text-[#00ff41]"
+              >
+                Sign Out
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
       </div>
       {/* Search Input */}
-      <div className="hidden md:block p-2 bg-[#111B21]">
-        <div className="relative bg-[#202C33] rounded-lg flex items-center">
-          <div className="pl-4 pr-2 py-2">
-            <Search className="h-5 w-5 text-[#8696A0]" />
+      <div className="hidden md:block p-2 bg-black">
+        <div className="relative bg-black border border-[#00ff41]/30 rounded-md flex items-center hover:border-[#00ff41]/60 transition-colors">
+          <div className="pl-3 pr-2 py-2">
+            <Search className="h-4 w-4 text-[#00ff41]/80" />
           </div>
           <input
-            placeholder="Search"
+            placeholder="Search conversations..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-transparent border-none text-[#E9EDEF] placeholder:text-[#8696A0] focus:outline-none py-2 text-base"
+            className="w-full bg-transparent border-none text-[#00ff41] placeholder:text-[#00ff41]/50 focus:outline-none py-2 text-sm font-mono focus:ring-0 focus:ring-offset-0"
           />
         </div>
       </div>
       {/* Conversations list */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto custom-scrollbar">
         {filteredConversations?.map((chat) => (
           <Link href={`/chat/${chat.id}`} key={chat.id}>
-            <div className={`flex items-center px-2 py-2 md:px-3 md:py-3 hover:bg-[#202C33] cursor-pointer
-                  ${pathname.split("/")?.[2] === chat?.id ? "bg-[#202C33]" : ""}
-                `}>
+            <div className={`flex items-center p-4 hover:bg-[#00ff41]/10 cursor-pointer border-b border-[#00ff41]/10 ${pathname.split("/")?.[2] === chat?.id ? "bg-[#202C33]" : ""}`}>
               <div className="relative">
                 <Avatar>
                   <AvatarImage className="w-12 h-12 rounded-full" src={chat?.chatImage} />
@@ -110,13 +129,13 @@ export default function Sidebar({ preloadedUserInfo, preloadedConversations }: S
               </div>
               {/* Conversation details - Only visible on md and larger screens */}
               <div className="hidden md:block flex-1 min-w-0 ml-3">
-                <div className="flex justify-between items-baseline">
-                  <h2 className="text-[#E9EDEF] text-base font-normal truncate">
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm font-mono text-[#00ff41] truncate">
                     <HighlightText text={chat.name} searchQuery={searchQuery} />
-                  </h2>
+                  </h3>
                   <span className="text-[#8696A0] text-xs ml-2 shrink-0">{chat.time}</span>
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between p-4 border-b border-[#00ff41]/20">
                   <p className="text-[#8696A0] text-sm truncate pr-2">
                     {chat.type === "image" ? (
                       <span className="flex items-center gap-1">

@@ -14,14 +14,13 @@ interface ChatLayoutProps {
 }
 
 export default function ChatLayoutWrapper({ children, preloadedUserInfo, preloadedConversations }: ChatLayoutProps) {
-
+  const { isLoaded, isSignedIn } = useAuth()
   // Sidebar
   // Header
   // Nice loading state
 
-  const { isLoaded, isSignedIn } = useAuth()
   const [shouldShowLoading, setShouldShowLoading] = useState(true)
-
+ 
   const userInfo = usePreloadedQuery(preloadedUserInfo)
   const conversations = usePreloadedQuery(preloadedConversations)
 
@@ -35,15 +34,19 @@ export default function ChatLayoutWrapper({ children, preloadedUserInfo, preload
 
   const isLoading = !isLoaded || userInfo === undefined || shouldShowLoading || conversations === undefined
 
-  if (isLoading) {
-    return <LoadingState />
-  }
-
   if (!isSignedIn) {
     return null;
   }
+
+  if (isLoading) {
+    return (
+      <div className="fixed inset-0 bg-black z-50">
+        <LoadingState />
+      </div>
+    );
+  }
   return (
-    <div className="flex h-screen bg-background dark:bg-[#111B21] overflow-hidden">
+    <div className="flex h-screen bg-black overflow-hidden">
       <Sidebar preloadedUserInfo={preloadedUserInfo} preloadedConversations={preloadedConversations} />
       <Header>
         {children}

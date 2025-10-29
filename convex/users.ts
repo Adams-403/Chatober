@@ -94,27 +94,35 @@ export const updateProfileImage = mutation({
 
 export const searchUsers = query({
   args: {
-    searchTerm: v.string(),
+    searchTerm: v.optional(v.string()),
     currentUserId: v.string(),
   },
   handler: async (ctx, args) => {
-    if (!args.searchTerm) return [];
-
-    const searchTermLower = args.searchTerm.toLowerCase();
-
-    const users = await ctx.db
+    // First get all users except the current user
+    let users = await ctx.db
       .query("users")
       .filter((q) => q.neq(q.field("userId"), args.currentUserId))
       .collect();
 
-    return users
-      .filter((user: any) => {
-        const nameMatch = user?.name?.toLowerCase().includes(searchTermLower);
+    console.log('Found users:', users);
+    
+    // If no search term or empty search term, return all users
+    if (!args.searchTerm || args.searchTerm.trim() === '') {
+      console.log('No search term, returning all users');
+      return users;
+    }
 
-        const emailMatch = user?.email?.toLowerCase().includes(searchTermLower);
+    console.log('Filtering users with search term:', args.searchTerm);
+    const searchTermLower = args.searchTerm.toLowerCase();
 
-        return nameMatch || emailMatch;
-      })
-      .slice(0, 10);
+    // Filter users by name or email
+    const filteredUsers = users.filter((user) => {
+      const nameMatch = user.name?.toLowerCase().includes(searchTermLower) || false;
+      const emailMatch = user.email?.toLowerCase().includes(searchTermLower) || false;
+      return nameMatch || emailMatch;
+    });
+
+    console.log('Filtered users:', filteredUsers);
+    return filteredUsers.slice(0, 20);
   },
 });

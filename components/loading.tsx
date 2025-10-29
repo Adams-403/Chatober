@@ -2,7 +2,6 @@
 
 import { Lock } from "lucide-react"
 import { useEffect, useState } from "react"
-import { Progress } from "./ui/progress"
 
 export default function LoadingState() {
   const [progress, setProgress] = useState(0)
@@ -21,32 +20,36 @@ export default function LoadingState() {
     return () => clearInterval(interval)
   }, [])
 
-
-
   return (
-    <div className="flex h-screen bg-[#111B21]">
-      <div className="flex-1 flex flex-col">
-        <div className="flex-1 flex flex-col items-center justify-center gap-3">
-          <svg
-            viewBox="0 0 24 24"
-            className="w-16 h-16 text-[#424F59]"
-          >
-            <path
-              fill="currentColor"
-              d="M12,2C6.477,2,2,6.477,2,12c0,1.89,.528,3.659,1.444,5.166L2.168,21.75c-.141,.469,.311,.921,.78,.78l4.584-1.276c1.507,.916,3.276,1.444,5.166,1.444,5.523,0,10-4.477,10-10S17.523,2,12,2Zm0,18c-1.68,0-3.3-.46-4.718-1.332l-.358-.23-3.725,1.037,1.037-3.725-.23-.358c-.872-1.418-1.332-3.038-1.332-4.718,0-4.962,4.038-9,9-9s9,4.038,9,9-4.038,9-9,9Z"
-            />
-          </svg>
-          <div className="text-center mb-8">
-            <h1 className="text-[#E9EDEF] text-xl font-light mb-1">WhatsApp</h1>
-            <div className="flex items-center justify-center gap-2 text-[#8696A0]">
-              <Lock className="w-3 h-3" />
-              <span className="text-sm">End-to-end encrypted (NOT REALLY)</span>
+    <div className="fixed inset-0 bg-black text-[#00ff41] font-mono flex items-center justify-center z-50">
+      <div className="flex flex-col items-center justify-center p-6 text-center max-w-md w-full">
+        <div className="relative mb-8">
+          <div className="absolute inset-0 bg-[#00ff41] opacity-20 blur-lg rounded-full -z-10"></div>
+          <Lock className="h-20 w-20 mx-auto text-[#00ff41] animate-pulse" />
+        </div>
+        
+        <h2 className="text-3xl font-bold mb-2 glitch" data-text="CHATOBER_LOADING">
+          CHATOBER_LOADING
+        </h2>
+        
+        <p className="text-lg mb-6 text-[#00ff41]/80">
+          {`>_ Initializing secure connection... ${progress}%`}
+        </p>
+        
+        <div className="w-full max-w-md">
+          <div className="h-1 w-full bg-[#00ff41]/20 rounded-full overflow-hidden">
+            <div 
+              className="h-full bg-[#00ff41] transition-all duration-300 ease-out"
+              style={{ width: `${progress}%` }}
+            >
+              <div className="h-full w-4 bg-white/50 absolute right-0 animate-pulse"></div>
             </div>
           </div>
-
-          <div className="w-64">
-            <Progress value={progress} className="h-1 bg-[#202C33]" />
-          </div>
+        </div>
+        
+        <div className="mt-6 text-sm text-[#00ff41]/50">
+          <p>Establishing secure tunnel...</p>
+          <p className="mt-1">Encryption: AES-256 | Protocol: TLS 1.3</p>
         </div>
       </div>
     </div>
