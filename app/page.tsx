@@ -10,7 +10,7 @@ export default function Home() {
           CHATOBER v1.3.3.7
         </h1>
         <p className="text-xl md:text-2xl text-[#00ff41] font-mono">
-          {`>_ Secure. Encrypted. For Hackers. By Hackers.`}
+          {`>_ Secure. Encrypted. For Everyone. By Tech Enthusiasts.`}
         </p>
         <Button asChild size="lg" className="bg-white text-[#00A884] hover:bg-gray-100 dark:bg-[#202C33] dark:text-white dark:hover:bg-[#2A3942]">
           <Link href="/chat" className="text-lg font-semibold">
