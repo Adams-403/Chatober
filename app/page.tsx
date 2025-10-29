@@ -9,8 +9,8 @@ export default function Home() {
         <h1 className="text-4xl font-bold sm:text-5xl md:text-6xl">
           Welcome to Not WhatsApp
         </h1>
-        <p className="text-xl md:text-2xl text-white/80">
-          It&apos;s like WhatsApp, but not... You know what we mean.
+        <p className="text-xl md:text-2xl text-[#00ff41] font-mono">
+          {`>_ Secure. Encrypted. For Everyone. By Tech Enthusiasts.`}
         </p>
         <Button asChild size="lg" className="bg-white text-[#00A884] hover:bg-gray-100 dark:bg-[#202C33] dark:text-white dark:hover:bg-[#2A3942]">
           <Link href="/chat" className="text-lg font-semibold">
